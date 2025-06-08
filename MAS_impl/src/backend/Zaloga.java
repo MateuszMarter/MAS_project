@@ -4,6 +4,7 @@ import backend.pracownik.Pracownik;
 import util.Ext;
 import util.IdGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Zaloga extends Ext {
@@ -13,71 +14,50 @@ public class Zaloga extends Ext {
     private List<Pracownik> zalogaDzienna;
     private Stacja stacja;
 
-    public Zaloga() {
+    public Zaloga(Stacja stacja) {
+        this.zaloga = new ArrayList<>();
+        this.zalogaNocna = new ArrayList<>();
+        this.zalogaDzienna = new ArrayList<>();
+
         this.id = Integer.parseInt(IdGenerator.genId());
-    }
-
-    public void setStacja(Stacja stacja) {
         this.stacja = stacja;
+    }
 
-        if(stacja.getZaloga() != null && stacja.getZaloga().getId() != getId()) {
-            stacja.setZaloga(this);
+    private void dodajPracownika(Pracownik pracownik) {
+        if(zaloga.contains(pracownik)) {
+            throw new IllegalArgumentException("Pracownik juz jest w zalodze");
         }
     }
 
-    private int getId() {
-        return this.id;
-    }
-
-    public void addZalogaDzienna(Pracownik pracownik) {
-        if(zalogaDzienna.contains(pracownik)) {
-            throw new IllegalArgumentException("Pracownik juz w zalodze");
-        }
-
-        if(zalogaNocna.contains(pracownik)) {
-            throw new IllegalArgumentException("Pracownik juz w zalodze nocnej");
-        }
-
+    public void dodajPracownikaDzienna(Pracownik pracownik) {
+        dodajPracownika(pracownik);
         zalogaDzienna.add(pracownik);
-
-        if(!zaloga.contains(pracownik)) {
-            zaloga.add(pracownik);
-        }
     }
 
-    public void addZalogaNocna(Pracownik pracownik) {
-        if(zalogaDzienna.contains(pracownik)) {
-            throw new IllegalArgumentException("Pracownik juz w zalodze dziennej");
-        }
-
-        if(zalogaNocna.contains(pracownik)) {
-            throw new IllegalArgumentException("Pracownik juz w zalodze ");
-        }
-
+    public void dodajPracownikaNocna(Pracownik pracownik) {
+        dodajPracownika(pracownik);
         zalogaNocna.add(pracownik);
-
-        if(!zaloga.contains(pracownik)) {
-            zaloga.add(pracownik);
-        }
     }
 
-    public void removePracownik(Pracownik pracownik) {
-        if(!zalogaDzienna.contains(pracownik)) {
-            throw new IllegalArgumentException("Pracownik nie istnieje");
-        }
-
+    public void usunPracownika(Pracownik pracownik) {
         zaloga.remove(pracownik);
-
-        zalogaDzienna.remove(pracownik);
         zalogaNocna.remove(pracownik);
-    }
-
-    public void usunZDziennej(Pracownik pracownik) {
         zalogaDzienna.remove(pracownik);
     }
 
-    public void usunaNocnej(Pracownik pracownik) {
-        zalogaNocna.remove(pracownik);
+
+    public void usunStacja() {
+        Stacja tmp = this.stacja;
+        stacja = null;
+        tmp.remove();
     }
 
+    @Override
+    public int remove() {
+        if(stacja.getZaloga() == this) {
+            usunStacja();
+        }
+
+        return super.remove();
+    }
 }

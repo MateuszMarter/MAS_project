@@ -4,7 +4,6 @@ import backend.Stacja;
 import util.Ext;
 import util.IdGenerator;
 
-import java.util.EnumSet;
 
 public class ModulBazowy extends Ext {
     private int id;
@@ -12,27 +11,38 @@ public class ModulBazowy extends Ext {
     private Stacja stacja;
 
     public ModulBazowy(StatusModulu statusModulu) {
-        this.id = Integer.parseInt(IdGenerator.genId());
         this.statusModulu = statusModulu;
+        this.id = Integer.parseInt(IdGenerator.genId());
     }
 
-    public void setStacja(Stacja stacja) {
+    public ModulBazowy(StatusModulu statusModulu, Stacja stacja) {
+        this.statusModulu = statusModulu;
+        this.id = Integer.parseInt(IdGenerator.genId());
         this.stacja = stacja;
+    }
 
-        if(!stacja.hasModule(this)) {
-            stacja.dodajModul(this);
-        }
+
+    public void dodajStacje(Stacja stacja) {
+        this.stacja = stacja;
     }
 
     public void removeStacja(Stacja stacja) {
+        if(this.stacja != stacja && stacja != null) {
+            throw new IllegalArgumentException("Modul nalezy do innej stacji");
+        }
+
+        Stacja tmp = stacja;
         this.stacja = null;
 
-        if(!stacja.hasModule(this)) {
-            stacja.usunModul(this);
+        if(tmp.hasModule(this)) {
+            tmp.usunModul(this);
         }
     }
 
-    public Stacja getStacja() {
-        return stacja;
+    @Override
+    public int remove() {
+        removeStacja(stacja);
+
+        return super.remove();
     }
 }

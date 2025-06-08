@@ -1,9 +1,11 @@
 package backend;
 
 import backend.modul.ModulBazowy;
+import backend.modul.StatusModulu;
 import util.Ext;
 import util.IdGenerator;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,84 +18,105 @@ public class Stacja extends Ext {
     private String nazwa;
     private Zaloga zaloga;
 
-    private List<ModulBazowy> moduly;
+    private final List<ModulBazowy> moduly = new ArrayList<>();
 
-    public Stacja(String lokalizacja, String nazwa, List<ModulBazowy> moduly, Zaloga zaloga) {
-        this.id = Integer.parseInt(IdGenerator.genId());
-        setNazwa(nazwa);
-        setLokalizacja(lokalizacja);
-        dodajModuly(moduly);
-        setZaloga(zaloga);
-    }
-
-    public Stacja(String lokalizacja, String nazwa, ModulBazowy modul, Zaloga zaloga) {
-        this.id = Integer.parseInt(IdGenerator.genId());
+    public Stacja(String nazwa, String lokalizacja, ModulBazowy modul) {
         setNazwa(nazwa);
         setLokalizacja(lokalizacja);
         dodajModul(modul);
-        setZaloga(zaloga);
+        this.id = Integer.parseInt(IdGenerator.genId());
+        this.zaloga = new Zaloga(this);
     }
 
-    public void setLokalizacja(String lokalizacja) {
-        this.lokalizacja = lokalizacja;
+    public Stacja(String nazwa, String lokalizacja, List<ModulBazowy> moduly) {
+        setNazwa(nazwa);
+        setLokalizacja(lokalizacja);
+        dodajModuly(moduly);
+        this.id = Integer.parseInt(IdGenerator.genId());
+        this.zaloga = new Zaloga(this);
+    }
+
+    public Stacja(String nazwa, String lokalizacja) {
+        setNazwa(nazwa);
+        setLokalizacja(lokalizacja);
+        this.id = Integer.parseInt(IdGenerator.genId());
+        dodajModul(new ModulBazowy(StatusModulu.OPERACYJNA));
+        this.zaloga = new Zaloga(this);
     }
 
     public void setNazwa(String nazwa) {
         if(zajeteNazwy.contains(nazwa.toLowerCase())) {
-            throw new IllegalArgumentException("Nazwa stacji już istnieje");
+            throw new IllegalArgumentException("Nazwa jest juz zajeta");
         }
 
         this.nazwa = nazwa;
         zajeteNazwy.add(nazwa.toLowerCase());
+    }
 
+    public void setLokalizacja(String lokalizacja) {
+        String[] split = lokalizacja.split(",");
+        if(split.length != 2) {
+            throw new IllegalArgumentException("Nieprawidlowa lokalizacja");
+        }
+
+        this.lokalizacja = lokalizacja;
     }
 
     public void dodajModul(ModulBazowy modul) {
         moduly.add(modul);
-        modul.setStacja(this);
+        modul.dodajStacje(this);
+    }
+
+
+    public boolean hasModule(ModulBazowy modulBazowy) {
+        return moduly.contains(modulBazowy);
     }
 
     public void dodajModuly(List<ModulBazowy> moduly) {
         if(moduly.isEmpty()) {
-            throw new IllegalArgumentException("Musi zawierac conajmniej jeden modul");
+            throw new IllegalArgumentException("Musi być conajmniej jeden modul");
         }
 
-        this.moduly = moduly;
-
-        for(ModulBazowy modul : moduly) {
-            modul.setStacja(this);
-        }
+        this.moduly.addAll(moduly);
     }
 
     public void usunModul(ModulBazowy modul) {
-        if(!moduly.contains(modul)) {
-            throw new IllegalArgumentException("Nazwa stacji ju<UNK> istnieje");
-        }
-
         if(moduly.size() < 2) {
-            throw new IllegalStateException("Musi byc conajmniej jeden modul");
+            throw new IllegalArgumentException("Nie mozna usunac modulu z stacji z jednym modulem");
         }
 
         moduly.remove(modul);
-        if(modul.getStacja().getId() == getId() ) {
-            modul.removeStacja(this);
+        modul.remove();
+    }
+
+    private void usunZaloga() {
+        Zaloga zaloga = this.zaloga;
+
+        if(zaloga != null) {
+            this.zaloga = null;
+            zaloga.usunStacja();
+            zaloga.remove();
         }
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-
-    public boolean hasModule(ModulBazowy modul) {
-        return moduly.contains(modul);
     }
 
     public Zaloga getZaloga() {
         return zaloga;
     }
 
-    public void setZaloga(Zaloga zaloga) {
-        this.zaloga = zaloga;
+    @Override
+    public int remove() {
+        for(ModulBazowy modul : moduly) {
+            ModulBazowy tmp = modul;
+
+            moduly.remove(modul);
+
+            tmp.removeStacja(this);
+            tmp.remove();
+        }
+
+        usunZaloga();
+
+        return super.remove();
     }
+
 }
