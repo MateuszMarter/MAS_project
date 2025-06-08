@@ -80,7 +80,7 @@ public class Dowodca extends Pracownik {
 
     @Override
     public String toString() {
-        return "Kadet{" +
+        return "Dowodca{" +
                 "id=" + super.getId() +
                 ", imie='" + super.getImie() + '\'' +
                 ", nazwisko='" + super.getNazwisko() + '\'' +

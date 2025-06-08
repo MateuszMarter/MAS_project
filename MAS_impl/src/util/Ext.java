@@ -35,7 +35,7 @@ public class Ext implements Serializable {
     }
 
     public static int save() {
-        try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("SomeData.ratata"))) {
+        try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("ExtSave.pls"))) {
             os.writeObject(ext);
 
             return 1;
@@ -45,7 +45,7 @@ public class Ext implements Serializable {
     }
 
     public static int load() {
-        try(ObjectInputStream is = new ObjectInputStream(new FileInputStream("SomeData.ratata"))) {
+        try(ObjectInputStream is = new ObjectInputStream(new FileInputStream("ExtSave.pls"))) {
             ext = (Map<Class, List>) is.readObject();
 
             return 1;
