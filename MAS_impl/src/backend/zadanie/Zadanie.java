@@ -40,4 +40,8 @@ public class Zadanie extends Ext {
                 ", typZadania=" + typZadania +
                 '}';
     }
+
+    public StatusZadania getStatus() {
+        return statusZadania;
+    }
 }

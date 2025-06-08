@@ -78,6 +78,8 @@ public class Main {
             Zadanie zadanie14 = new Zadanie(TypZadania.GOSPODARCZE);
             Zadanie zadanie15 = new Zadanie(TypZadania.OGOLNE);
 
+            System.out.println("Status zadania 1: " + zadanie1.getStatus());
+
             Raport raport1 = new Raport("Zadanie 1", k1, zadanie1, LocalDateTime.now().plusDays(1));
             Raport raport2 = new Raport("Zadanie 2", k2, zadanie2, LocalDateTime.now().plusDays(2));
             Raport raport3 = new Raport("Zadanie 3", k3, zadanie3, LocalDateTime.now().plusDays(3));
@@ -98,7 +100,10 @@ public class Main {
 
             k1.wyswietlSwojeZadania();
             k1.porzucZadanie(zadanie1);
+
+            System.out.println("Status zadania 1: " + zadanie1.getStatus());
             k1.wykonajZadanie(zadanie1);
+            System.out.println("Status zadania 1: " + zadanie1.getStatus());
 
             System.out.println(k1.obliczPensje());
             Dowodca awansowany = k1.promocja();

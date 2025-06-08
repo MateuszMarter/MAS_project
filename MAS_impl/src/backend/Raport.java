@@ -1,6 +1,7 @@
 package backend;
 
 import backend.pracownik.Pracownik;
+import backend.zadanie.StatusZadania;
 import backend.zadanie.Zadanie;
 import util.Ext;
 
@@ -36,6 +37,7 @@ public class Raport extends Ext {
     public void setZadnie(Zadanie zadanie) {
         this.zadanie = zadanie;
         zadanie.setRaport(this);
+        zadanie.setStatus(StatusZadania.NIEZREALIZOWANE);
     }
 
     public void setOpis(String opis) {
