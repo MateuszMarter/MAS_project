@@ -8,25 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Zaloga extends Ext {
-    private int id;
-    private List<Pracownik> zaloga;
-    private List<Pracownik> zalogaNocna;
-    private List<Pracownik> zalogaDzienna;
+    private long id;
+    private final List<Pracownik> zaloga = new ArrayList<>();
+    private final List<Pracownik> zalogaNocna = new ArrayList<>();
+    private final List<Pracownik> zalogaDzienna = new ArrayList<>();
     private Stacja stacja;
 
     public Zaloga(Stacja stacja) {
-        this.zaloga = new ArrayList<>();
-        this.zalogaNocna = new ArrayList<>();
-        this.zalogaDzienna = new ArrayList<>();
-
-        this.id = Integer.parseInt(IdGenerator.genId());
+        this.id = Long.parseLong(IdGenerator.genId());
         this.stacja = stacja;
     }
 
-    private void dodajPracownika(Pracownik pracownik) {
+    public void dodajPracownika(Pracownik pracownik) {
         if(zaloga.contains(pracownik)) {
             throw new IllegalArgumentException("Pracownik juz jest w zalodze");
         }
+
+        zaloga.add(pracownik);
     }
 
     public void dodajPracownikaDzienna(Pracownik pracownik) {
@@ -40,9 +38,12 @@ public class Zaloga extends Ext {
     }
 
     public void usunPracownika(Pracownik pracownik) {
-        zaloga.remove(pracownik);
-        zalogaNocna.remove(pracownik);
-        zalogaDzienna.remove(pracownik);
+        if(zaloga.contains(pracownik)) {
+            zaloga.remove(pracownik);
+            zalogaNocna.remove(pracownik);
+            zalogaDzienna.remove(pracownik);
+
+        }
     }
 
 
@@ -52,12 +53,47 @@ public class Zaloga extends Ext {
         tmp.remove();
     }
 
+    public List<Pracownik> getPracownicy() {
+        return zaloga;
+    }
+
+    public List<Pracownik> getPracownicyDzienne() {
+        return zalogaDzienna;
+    }
+
+    public List<Pracownik> getPracownicyNocne() {
+        return zalogaNocna;
+    }
+
+    public long getId() {
+        return id;
+    }
+
     @Override
     public int remove() {
-        if(stacja.getZaloga() == this) {
+        if(stacja != null && stacja.getZaloga() == this) {
             usunStacja();
+        }
+        List<Pracownik> tmp = new ArrayList<>(zaloga);
+        zaloga.clear();
+        zalogaDzienna.clear();
+        zalogaNocna.clear();
+
+        for(Pracownik pracownik : tmp) {
+            pracownik.remove();
         }
 
         return super.remove();
+    }
+
+    @Override
+    public String toString() {
+        return "Zaloga{" +
+                "id=" + id +
+                ", zaloga=" + zaloga +
+                ", zalogaNocna=" + zalogaNocna +
+                ", zalogaDzienna=" + zalogaDzienna +
+                ", stacja=" + stacja.getName() +
+                "}";
     }
 }

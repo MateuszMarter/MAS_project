@@ -13,34 +13,18 @@ import java.util.Set;
 public class Stacja extends Ext {
     private final static Set<String> zajeteNazwy = new HashSet<>();
 
-    private int id;
-    private String lokalizacja;
+    private long id;
+    private String siedziba;
     private String nazwa;
     private Zaloga zaloga;
 
     private final List<ModulBazowy> moduly = new ArrayList<>();
 
-    public Stacja(String nazwa, String lokalizacja, ModulBazowy modul) {
-        setNazwa(nazwa);
-        setLokalizacja(lokalizacja);
-        dodajModul(modul);
-        this.id = Integer.parseInt(IdGenerator.genId());
-        this.zaloga = new Zaloga(this);
-    }
-
-    public Stacja(String nazwa, String lokalizacja, List<ModulBazowy> moduly) {
-        setNazwa(nazwa);
-        setLokalizacja(lokalizacja);
-        dodajModuly(moduly);
-        this.id = Integer.parseInt(IdGenerator.genId());
-        this.zaloga = new Zaloga(this);
-    }
-
     public Stacja(String nazwa, String lokalizacja) {
         setNazwa(nazwa);
-        setLokalizacja(lokalizacja);
-        this.id = Integer.parseInt(IdGenerator.genId());
-        dodajModul(new ModulBazowy(StatusModulu.OPERACYJNA));
+        setSiedziba(lokalizacja);
+        this.id = Long.parseLong(IdGenerator.genId());
+        dodajModul(ModulBazowy.stworzModul(StatusModulu.OPERACYJNA, this));
         this.zaloga = new Zaloga(this);
     }
 
@@ -53,13 +37,13 @@ public class Stacja extends Ext {
         zajeteNazwy.add(nazwa.toLowerCase());
     }
 
-    public void setLokalizacja(String lokalizacja) {
-        String[] split = lokalizacja.split(",");
+    public void setSiedziba(String siedziba) {
+        String[] split = siedziba.split(",");
         if(split.length != 2) {
             throw new IllegalArgumentException("Nieprawidlowa lokalizacja");
         }
 
-        this.lokalizacja = lokalizacja;
+        this.siedziba = siedziba;
     }
 
     public void dodajModul(ModulBazowy modul) {
@@ -81,12 +65,14 @@ public class Stacja extends Ext {
     }
 
     public void usunModul(ModulBazowy modul) {
-        if(moduly.size() < 2) {
-            throw new IllegalArgumentException("Nie mozna usunac modulu z stacji z jednym modulem");
-        }
+        if(moduly.contains(modul)) {
+            if(moduly.size() < 2) {
+                throw new IllegalArgumentException("Nie mozna usunac modulu z stacji z jednym modulem");
+            }
 
-        moduly.remove(modul);
-        modul.remove();
+            moduly.remove(modul);
+            modul.remove();
+        }
     }
 
     private void usunZaloga() {
@@ -103,15 +89,18 @@ public class Stacja extends Ext {
         return zaloga;
     }
 
+
+    public String getName() {
+        return nazwa;
+    }
+
     @Override
     public int remove() {
-        for(ModulBazowy modul : moduly) {
-            ModulBazowy tmp = modul;
+        List<ModulBazowy> tmp = new ArrayList<>(moduly);
+        moduly.clear();
 
-            moduly.remove(modul);
-
-            tmp.removeStacja(this);
-            tmp.remove();
+        for(ModulBazowy modul : tmp) {
+            modul.remove();
         }
 
         usunZaloga();
@@ -119,4 +108,18 @@ public class Stacja extends Ext {
         return super.remove();
     }
 
+    @Override
+    public String toString() {
+        return "Stacja{" +
+                "id=" + id +
+                ", nazwa='" + nazwa + '\'' +
+                ", siedziba='" + siedziba + '\'' +
+                ", moduly=" + moduly +
+                ", zaloga=" + zaloga +
+                "}";
+    }
+
+    public List<ModulBazowy> getModuly() {
+        return moduly;
+    }
 }
