@@ -1,5 +1,8 @@
-package backend;
+package util;
 
+import backend.Raport;
+import backend.Stacja;
+import backend.Zaloga;
 import backend.modul.ModulBazowy;
 import backend.modul.StatusModulu;
 import backend.pracownik.Dowodca;
