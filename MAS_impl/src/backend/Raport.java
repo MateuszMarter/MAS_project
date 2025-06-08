@@ -25,6 +25,10 @@ public class Raport extends Ext {
         setPracownik(pracownik);
     }
 
+    public static List<Zadanie> getZadania() {
+        return zadania;
+    }
+
     public void setNazwaZadania(String nazwaZadania) {
         this.nazwaZadania = nazwaZadania;
     }

@@ -26,7 +26,10 @@ public class Kadet extends Pracownik {
     }
 
     public Dowodca promocja() {
-        return new Dowodca(this);
+        Dowodca dowodca = new Dowodca(this);
+        super.remove();
+
+        return dowodca;
     }
 
     @Override

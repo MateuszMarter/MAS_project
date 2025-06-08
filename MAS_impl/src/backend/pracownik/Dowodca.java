@@ -65,6 +65,7 @@ public class Dowodca extends Pracownik {
     public void edytujZadaniePracownika(Pracownik pracownik, Zadanie zadanie, Zadanie noweZadanie) {
         System.out.println(zadanie.getId() + " " + noweZadanie.getId());
         pracownik.getRaporty().forEach(r -> System.out.println(r.getZadanie().getId()));
+
         Raport raport = pracownik.getRaporty().stream()
                 .filter(r -> r.getZadanie().getId() == zadanie.getId())
                 .findFirst()

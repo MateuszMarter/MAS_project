@@ -17,6 +17,7 @@ public class Zadanie extends Ext {
         this.typZadania = typZadania;
         this.statusZadania = StatusZadania.DOSTEPNE;
         this.id = Long.parseLong(IdGenerator.genId());
+        Raport.dodajZadanie(this);
     }
 
     public void setStatus(StatusZadania statusZadania) {

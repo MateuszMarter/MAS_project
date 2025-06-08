@@ -1,3 +1,4 @@
+import backend.Raport;
 import backend.pracownik.Pracownik;
 
 import backend.modul.ModulBazowy;
@@ -17,8 +18,6 @@ public class Main {
 
 
         try {
-            // Przygotowanie danych zależnych
-
             Stacja s1 = new Stacja("S1", "Jerozolimskie, Warszawa");
             Stacja s2 = new Stacja("S2", "Jana Pawla, Warszawa");
 
@@ -50,57 +49,68 @@ public class Main {
             Kadet k3 = new Kadet("Mateusz", "Wisniewski", z2);
             Dowodca dowodca = new Dowodca("Anna", "Kowalska", z2);
 
+            k1.dodajOcene(5);
+            k1.dodajOcene(3);
+            k1.dodajOcene(2);
+            k1.dodajOcene(5);
+            k1.dodajOcene(2);
+            System.out.println("Srednia k1: " + k1.obliczSrednia());
+
             //Zaloga z usunietej stacji
-            System.out.println(z1.getPracownicy());
-            
+            System.out.println("Pracownicy z s1: " + z1.getPracownicy());
+
             //Zaloga z nie usunietej
-            System.out.println(z2.getPracownicy());
+            System.out.println("Pracownicy z s2: " + z2.getPracownicy());
 
             Zadanie zadanie1 = new Zadanie(TypZadania.MECHANICZNE);
             Zadanie zadanie2 = new Zadanie(TypZadania.GOSPODARCZE);
             Zadanie zadanie3 = new Zadanie(TypZadania.OGOLNE);
+            Zadanie zadanie4 = new Zadanie(TypZadania.MECHANICZNE);
+            Zadanie zadanie5 = new Zadanie(TypZadania.GOSPODARCZE);
+            Zadanie zadanie6 = new Zadanie(TypZadania.OGOLNE);
+            Zadanie zadanie7 = new Zadanie(TypZadania.MECHANICZNE);
+            Zadanie zadanie8 = new Zadanie(TypZadania.GOSPODARCZE);
+            Zadanie zadanie9 = new Zadanie(TypZadania.OGOLNE);
+            Zadanie zadanie10 = new Zadanie(TypZadania.MECHANICZNE);
+            Zadanie zadanie11 = new Zadanie(TypZadania.GOSPODARCZE);
+            Zadanie zadanie12 = new Zadanie(TypZadania.OGOLNE);
+            Zadanie zadanie13 = new Zadanie(TypZadania.MECHANICZNE);
+            Zadanie zadanie14 = new Zadanie(TypZadania.GOSPODARCZE);
+            Zadanie zadanie15 = new Zadanie(TypZadania.OGOLNE);
 
-            // Pracownik (Kadet) wybiera zadanie
-            k1.wybierzZadanie(zadanie1, "Naprawa silnika", LocalDateTime.now().plusDays(1));
-            k1.wybierzZadanie(zadanie2, "Sprzątanie pokładu", LocalDateTime.now().plusDays(2));
-            System.out.println("--- Zadania Kadeta ---");
+            Raport raport1 = new Raport("Zadanie 1", k1, zadanie1, LocalDateTime.now().plusDays(1));
+            Raport raport2 = new Raport("Zadanie 2", k2, zadanie2, LocalDateTime.now().plusDays(2));
+            Raport raport3 = new Raport("Zadanie 3", k3, zadanie3, LocalDateTime.now().plusDays(3));
+            Raport raport4 = new Raport("Zadanie 4", dowodca, zadanie4, LocalDateTime.now().plusDays(4));
+            Raport raport5 = new Raport("Zadanie 5", k1, zadanie5, LocalDateTime.now().plusDays(5));
+            Raport raport6 = new Raport("Zadanie 6", k2, zadanie6, LocalDateTime.now().plusDays(6));
+            Raport raport7 = new Raport("Zadanie 7", k3, zadanie7, LocalDateTime.now().plusDays(7));
+            Raport raport8 = new Raport("Zadanie 8", dowodca, zadanie8, LocalDateTime.now().plusDays(8));
+            Raport raport9 = new Raport("Zadanie 9", k1, zadanie9, LocalDateTime.now().plusDays(9));
+            Raport raport10 = new Raport("Zadanie 10", k2, zadanie10, LocalDateTime.now().plusDays(10));
+            Raport raport11 = new Raport("Zadanie 11", k3, zadanie11, LocalDateTime.now().plusDays(11));
+            Raport raport12 = new Raport("Zadanie 12", dowodca, zadanie12, LocalDateTime.now().plusDays(12));
+            Raport raport13 = new Raport("Zadanie 13", k1, zadanie13, LocalDateTime.now().plusDays(13));
+            Raport raport14 = new Raport("Zadanie 14", k2, zadanie14, LocalDateTime.now().plusDays(14));
+            Raport raport15 = new Raport("Zadanie 15", k3, zadanie15, LocalDateTime.now().plusDays(15));
+
             k1.wyswietlZadania();
 
-            // Porzucenie zadania
+            k1.wyswietlSwojeZadania();
             k1.porzucZadanie(zadanie1);
-            System.out.println("--- Po porzuceniu zadania ---");
-            k1.wyswietlZadania();
+            k1.wykonajZadanie(zadanie1);
 
-            // Dowodca zarządza zadaniami pracownika
-            dowodca.wyswietlListePracownikow();
-            System.out.println("Dowódca odczytuje dane pracownika:");
-            System.out.println(k1);
-            Pracownik p = dowodca.danePracownika(k1.getId());
-            System.out.println(p.getImie() + " " + p.getNazwisko());
-
-            System.out.println("Dowódca przegląda zadania pracownika:");
-            dowodca.wyswietlZadaniaPracownika(k1);
-
-            System.out.println("Dowódca usuwa zadanie pracownika:");
-            dowodca.usunZadaniePracownika(k1, zadanie2);
-
-            System.out.println("Dowódca przypisuje nowe zadanie:");
-            dowodca.dodajZadaniePracownika("Inspekcja", k1, zadanie3, LocalDateTime.now().plusDays(3));
-
-            System.out.println("Dowódca edytuje zadanie pracownika:");
-            dowodca.edytujZadaniePracownika(k1, zadanie3, zadanie1);
-
-            System.out.println("--- Zadania Kadeta po edycji ---");
-            k1.wyswietlZadania();
-
-            // Test Kadet – oceny i pensja
-            k1.dodajOcene(5);
-            k1.dodajOcene(4);
-            System.out.println("Średnia ocen kadeta: " + k1.obliczSrednia());
-            System.out.println("Pensja kadeta: " + k1.obliczPensje());
-
+            System.out.println(k1.obliczPensje());
             Dowodca awansowany = k1.promocja();
-            System.out.println("Awansowany dowódca (z kadeta): Pensja = " + awansowany.obliczPensje());
+
+            awansowany.wyswietlListePracownikow();
+            Pracownik pracownik = awansowany.danePracownika(k1.getId());
+            System.out.println(pracownik);
+
+            awansowany.usunZadaniePracownika(k3, zadanie15);
+            awansowany.wyswietlZadaniaPracownika(k3);
+
+            System.out.println("====Hangar i Przechowalnia====");
 
         } catch (Exception e) {
             e.printStackTrace();
