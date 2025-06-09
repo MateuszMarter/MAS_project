@@ -40,13 +40,6 @@ public class Kadet extends Pracownik {
 
     @Override
     public String toString() {
-        return "Kadet{" +
-                "id=" + super.getId() +
-                ", imie='" + super.getImie() + '\'' +
-                ", nazwisko='" + super.getNazwisko() + '\'' +
-                ", zaloga=" + super.getZaloga().getId() +
-                ", oceny=" + oceny +
-                ", srednia=" + obliczSrednia() +
-                '}';
+        return super.getImie() + ' ' + super.getNazwisko();
     }
 }

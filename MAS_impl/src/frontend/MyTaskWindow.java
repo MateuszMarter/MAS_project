@@ -1,4 +1,4 @@
-package frontend.Views;
+package frontend;
 
 import backend.Raport;
 import backend.pracownik.Dowodca;
@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class TaskView extends JFrame {
-    public TaskView(Dowodca dowodca, Raport raport, Zadanie zadanie, MyTasksView view) {
+public class MyTaskWindow extends JFrame {
+    public MyTaskWindow(Dowodca dowodca, Raport raport, Zadanie zadanie, Refreshable view) {
         super(raport.getNazwaZadania());
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

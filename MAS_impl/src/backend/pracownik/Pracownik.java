@@ -51,6 +51,11 @@ public abstract class Pracownik extends Ext {
     public void wyswietlSwojeZadania() {getRaporty().forEach(r -> System.out.println(r.getZadanie()));}
 
     public void porzucZadanie(Zadanie zadanie) {
+        List<Raport> raporty = getRaporty().stream().filter(r -> r.getZadanie() == zadanie).toList();
+        for(Raport raport : raporty) {
+            raport.remove();
+        }
+
         getRaporty().removeIf(r -> r.getZadanie() == zadanie);
     }
 

@@ -1,12 +1,13 @@
 package frontend.Models;
 
+import backend.pracownik.Dowodca;
 import backend.pracownik.Pracownik;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class WorkerTableModel extends AbstractTableModel {
-    private final List<Pracownik> pracownicy;
+    private List<Pracownik> pracownicy;
     private final String[] columnNames = {"ID","Imie", "Nazwisko", "Liczba zadan"};
 
     public WorkerTableModel(List<Pracownik> pracownicy) {
@@ -43,5 +44,9 @@ public class WorkerTableModel extends AbstractTableModel {
 
     public Pracownik getPracownikAt(int selectedRow) {
         return pracownicy.get(selectedRow);
+    }
+
+    public void setPracownicy(Dowodca dowodca) {
+        this.pracownicy = dowodca.wyswietlListePracownikow();
     }
 }

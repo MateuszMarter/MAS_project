@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DowodcaWindow extends JFrame {
-
     private Dowodca dowodca;
     private JPanel mainPanel;
 
@@ -22,7 +21,7 @@ public class DowodcaWindow extends JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                Ext.save();
+                //Ext.save();
                 dispose();
                 System.exit(0);
             }
@@ -62,7 +61,7 @@ public class DowodcaWindow extends JFrame {
 
     private void showMyTasks() {
         mainPanel.removeAll();
-        mainPanel.add(new MyTasksView(dowodca), BorderLayout.CENTER);
+        mainPanel.add(new MyTasksView(dowodca) , BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
     }

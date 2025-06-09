@@ -27,11 +27,13 @@ public class Dowodca extends Pracownik {
         return getPensjaPodstawowa() * (1 + (float)(iloscDowodzonychMisji/100.0));
     }
 
-    public void wyswietlListePracownikow() {
+    public List<Pracownik> wyswietlListePracownikow() {
         List<Pracownik> pracownicy = getZaloga().getPracownicy();
         for(Pracownik pracownik : pracownicy) {
             System.out.println(pracownik.getImie() + " " + pracownik.getNazwisko());
         }
+
+        return pracownicy;
     }
 
     public Pracownik danePracownika(double id) {

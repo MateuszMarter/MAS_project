@@ -8,4 +8,8 @@ public class TasksWindow extends Component {
     public TasksWindow(Dowodca dowodca) {
 
     }
+
+    public void refresh() {
+
+    }
 }

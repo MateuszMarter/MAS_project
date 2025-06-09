@@ -62,7 +62,7 @@ public class Init {
         Raport raport7 = new Raport("Zadanie 7", k3, zadanie7, LocalDateTime.now().plusDays(7));
         Raport raport8 = new Raport("Zadanie 8", dowodca, zadanie8, LocalDateTime.now().plusDays(8));
         Raport raport9 = new Raport("Zadanie 9", k1, zadanie9, LocalDateTime.now().plusDays(9));
-
+        Raport raport10 = new Raport("Zadanie 10", k2, zadanie4, LocalDateTime.now().plusDays(4));
 
     }
 }

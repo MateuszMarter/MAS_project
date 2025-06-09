@@ -3,53 +3,49 @@ package frontend.Views;
 import backend.Raport;
 import backend.pracownik.Dowodca;
 import backend.zadanie.Zadanie;
-import frontend.Models.TaskTableModel;
+import frontend.Models.MyTaskTableModel;
+import frontend.MyTaskWindow;
+import frontend.Refreshable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 
-public class MyTasksView extends JPanel {
+public class MyTasksView extends JPanel implements Refreshable {
+    private final MyTaskTableModel model;
+    private final Dowodca dowodca;
+
     public MyTasksView(Dowodca dowodca) {
         setLayout(new BorderLayout());
 
-        List<Raport> raportList = dowodca.getRaporty();
-        /*List<Zadanie> zadania = new ArrayList<>();
-        for (Raport raport : raportList) {
-            zadania.add(raport.getZadanie());
-        }*/
+        this.dowodca = dowodca;
+        List<Raport> raportList = this.dowodca.getRaporty();
 
-        TaskTableModel model = new TaskTableModel(raportList);
+        model = new MyTaskTableModel(raportList);
         JTable table = new JTable(model);
-
-        table.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int selectedRow = table.getSelectedRow();
-
-                if (selectedRow >= 0) {
-                    Raport wybranyRaport = model.getRaportAt(selectedRow);
-                    Zadanie wybraneZadanie = wybranyRaport.getZadanie();
-
-                    System.out.println("Wybrano zadanie: " + wybraneZadanie);
-                }
-            }
-        });
 
         MyTasksView thisView = this;
 
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
+                /*if(evt.getClickCount() == 1) {
+                    int selectedRow = table.getSelectedRow();
+                    if(selectedRow >= 0) {
+                        Raport wybranyRaport = model.getRaportAt(selectedRow);
+                        System.out.println(wybranyRaport.getAllPracownicy());
+                    }
+                }*/
+
                 if (evt.getClickCount() == 2) {
                     int selectedRow = table.getSelectedRow();
                     if (selectedRow >= 0) {
                         Raport wybranyRaport = model.getRaportAt(selectedRow);
                         Zadanie wybraneZadanie = wybranyRaport.getZadanie();
 
-                        new TaskView(dowodca, wybranyRaport, wybraneZadanie, thisView);
+                        new MyTaskWindow(dowodca, wybranyRaport, wybraneZadanie, thisView);
                     }
                 }
             }

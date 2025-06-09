@@ -1,23 +1,23 @@
 package frontend.Models;
 
 import backend.Raport;
+import backend.pracownik.Pracownik;
 import backend.zadanie.Zadanie;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class TaskTableModel extends AbstractTableModel {
-
-    private final List<Raport> raporty;
+    private List<Zadanie> zadania;
     private final String[] columnNames = {"Status", "Typ", "Pracownik"};
 
-    public TaskTableModel(List<Raport> raporty) {
-        this.raporty = raporty;
+    public TaskTableModel() {
+        zadania = Raport.getZadania();
     }
 
     @Override
     public int getRowCount() {
-        return raporty.size();
+        return zadania.size();
     }
 
     @Override
@@ -30,19 +30,34 @@ public class TaskTableModel extends AbstractTableModel {
         return columnNames[column];
     }
 
-
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        Raport raport = raporty.get(rowIndex);
+    public Class<?> getColumnClass(int columnIndex) {
         return switch (columnIndex) {
-            case 0 -> raport.getZadanie().getStatus();
-            case 1 -> raport.getZadanie().getTypZadania();
-            case 2 -> raport.getPracownik().getImie() + " " + raport.getPracownik().getNazwisko();
-            default -> null;
+            case 2 -> List.class;
+            default -> String.class;
         };
     }
 
-    public Raport getRaportAt(int selectedRow) {
-        return raporty.get(selectedRow);
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        Zadanie zadanie = zadania.get(rowIndex);
+         switch (columnIndex) {
+            case 0 -> {
+                return zadanie.getStatus();
+            }
+            case 1 -> {
+                return zadanie.getTypZadania();
+            }
+            case 2 -> {
+                return zadanie.getAllPracownicy();
+            }
+            default -> {
+                 return null;
+             }
+        }
+    }
+
+    public Zadanie getZadanieAt(int selectedRow) {
+        return zadania.get(selectedRow);
     }
 }

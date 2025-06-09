@@ -11,14 +11,18 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class WorkersView extends JPanel {
+    private final WorkerTableModel model;
+
     public WorkersView(Dowodca dowodca) {
         setLayout(new BorderLayout());
 
         List<Pracownik> pracownicy = dowodca.getZaloga().getPracownicy();
         System.out.println(pracownicy);
 
-        WorkerTableModel model = new WorkerTableModel(pracownicy);
+        model = new WorkerTableModel(pracownicy);
         JTable table = new JTable(model);
+
+        WorkersView thisView = this;
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -29,7 +33,7 @@ public class WorkersView extends JPanel {
                         Pracownik pracownik = model.getPracownikAt(selectedRow);
                         System.out.println("Wybrano pracownika: " + pracownik.getClass());
 
-                        new WorkerView(pracownik);
+                        new WorkerView(dowodca, pracownik, thisView);
                     }
                 }
             }
@@ -38,5 +42,10 @@ public class WorkersView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
         setVisible(true);
+    }
+
+    public void refresh() {
+        revalidate();
+        repaint();
     }
 }

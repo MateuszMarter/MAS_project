@@ -1,6 +1,7 @@
 package backend.zadanie;
 
 import backend.Raport;
+import backend.pracownik.Pracownik;
 import util.Ext;
 import util.IdGenerator;
 
@@ -32,7 +33,6 @@ public class Zadanie extends Ext {
         this.raporty.add(raport);
     }
 
-
     public void setTypZadania(TypZadania typZadania) {
         this.typZadania = typZadania;
     }
@@ -45,8 +45,17 @@ public class Zadanie extends Ext {
         return statusZadania;
     }
 
-    public Raport getRaport() {
-        return raporty.get(raporty.size() - 1);
+    public List<Raport> getRaporty() {
+        return raporty;
+    }
+
+    public List<Pracownik> getAllPracownicy() {
+        List<Pracownik> wspolpracownicy = new ArrayList<>();
+        for(Raport raport : raporty) {
+            wspolpracownicy.add(raport.getPracownik());
+        }
+
+        return wspolpracownicy;
     }
 
     @Override

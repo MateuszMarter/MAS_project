@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Raport extends Ext {
-    private static final List<Zadanie> zadania = new ArrayList<>();
-    private String nazwaZadania;
-    private String opis;
-    private LocalDateTime deadline;
+    private static final List<Zadanie> zadania = new ArrayList<>(); //wymagane
+    private String nazwaZadania; //wymagane
+    private String opis; //opcjonalne
+    private LocalDateTime deadline; //wymagane
 
-    private Pracownik pracownik;
-    private Zadanie zadanie;
+    private Pracownik pracownik; //wymagane
+    private Zadanie zadanie; //wymagane
 
     public Raport(String nazwaZadania, Pracownik pracownik, Zadanie zadanie, LocalDateTime deadline) {
         setNazwaZadania(nazwaZadania);
@@ -79,6 +79,22 @@ public class Raport extends Ext {
         return opis;
     }
 
+
+    public List<Pracownik> getAllPracownicy() {
+        List<Raport> raportyZadania = zadanie.getRaporty();
+        List<Pracownik> wspolPracownicy = new ArrayList<>();
+
+        for(Raport raport : raportyZadania) {
+            wspolPracownicy.add(raport.getPracownik());
+        }
+
+        return wspolPracownicy;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
     @Override
     public String toString() {
         return "Raport{" +
@@ -90,7 +106,12 @@ public class Raport extends Ext {
                 '}';
     }
 
-    public LocalDateTime getDeadline() {
-        return deadline;
+    @Override
+    public int remove() {
+        pracownik.getRaporty().remove(this);
+        zadanie.getRaporty().remove(this);
+
+        return super.remove();
     }
+
 }
