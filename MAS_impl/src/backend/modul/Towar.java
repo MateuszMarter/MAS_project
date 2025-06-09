@@ -3,15 +3,31 @@ package backend.modul;
 import util.Ext;
 import util.IdGenerator;
 
+import java.util.List;
+
 public class Towar extends Ext {
-    private final long id;
+    private final static List<Long> takenIds = new java.util.ArrayList<>();
+
+    private long id;
     private final float rozmiar;
     private ModulBazowy modulBazowy;
 
     public Towar(ModulBazowy modulBazowy, float rozmiar) {
-        this.id = IdGenerator.genId();
+        setId();
         this.rozmiar = rozmiar;
         setModul(modulBazowy);
+    }
+
+    private void setId() {
+        long tmp = IdGenerator.genId();
+
+        if(takenIds.contains(tmp)) {
+            this.id = tmp + 1;
+            takenIds.add(id);
+        } else {
+            this.id = tmp;
+            takenIds.add(id);
+        }
     }
 
     public void setModul(ModulBazowy modulBazowy) {
@@ -48,5 +64,15 @@ public class Towar extends Ext {
                 ", rozmiar=" + rozmiar +
                 ", modulBazowy=" + modulBazowy.getId() +
                 '}';
+    }
+
+    @Override
+    public int remove() {
+        if(modulBazowy != null) {
+            modulBazowy.usunTowar(this);
+            modulBazowy = null;
+        }
+
+        return super.remove();
     }
 }

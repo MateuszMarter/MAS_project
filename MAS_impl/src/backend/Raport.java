@@ -55,7 +55,10 @@ public class Raport extends Ext {
 
     public static void dodajZadanie(Zadanie zadanie) {
         zadania.add(zadanie);
-        System.out.println(zadanie.getId());
+    }
+
+    public static void dodajZadania(List<Zadanie> zadania) {
+        Raport.zadania.addAll(zadania);
     }
 
     public static void usunZadanie(Zadanie zadanie) {

@@ -1,5 +1,8 @@
 package util;
 
+import backend.Raport;
+import backend.zadanie.Zadanie;
+
 import java.io.*;
 import java.util.*;
 
@@ -47,6 +50,8 @@ public class Ext implements Serializable {
     public static int load() {
         try(ObjectInputStream is = new ObjectInputStream(new FileInputStream("ExtSave.pls"))) {
             ext = (Map<Class, List>) is.readObject();
+
+            Raport.dodajZadania(getExt(Zadanie.class));
 
             return 1;
         } catch (IOException | ClassNotFoundException e) {

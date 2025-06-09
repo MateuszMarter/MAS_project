@@ -1,16 +1,18 @@
 package backend.pojazd;
 
+import backend.modul.ModulBazowy;
 import util.Ext;
 
 public class Pojazd extends Ext {
     private float stanPaliwa;
     private float maxStanPaliwa;
 
-    private Cargo cargo;
-    private Transport transport;
+    private ModulBazowy modulBazowy;
 
-    public Pojazd(float stanPaliwa, float maxStanPaliwa) {
+    public Pojazd(float stanPaliwa, float maxStanPaliwa, ModulBazowy modulBazowy) {
         init(maxStanPaliwa, stanPaliwa);
+        this.modulBazowy = modulBazowy;
+        modulBazowy.dodajPojazd(this);
     }
 
     private void init(float maxStanPaliwa, float stanPaliwa) {
@@ -41,5 +43,20 @@ public class Pojazd extends Ext {
         }
 
         this.maxStanPaliwa = maxStanPaliwa;
+    }
+
+
+    public float getStanPaliwa() {
+        return stanPaliwa;
+    }
+
+    @Override
+    public int remove() {
+        if(modulBazowy != null) {
+            modulBazowy.usunPojazd(this);
+            modulBazowy = null;
+        }
+
+        return super.remove();
     }
 }

@@ -88,6 +88,25 @@ public class ModulBazowy extends Ext {
         if(towar.getModulBazowy() != this) {
             towar.setModul(this);
         }
+
+        towary.put(towar.getId(), towar);
+        System.out.println(towary.values());
+    }
+
+    public void dodajPojazd(Pojazd pojazd) {
+        if(!typyModulu.contains(TypModulu.HANGAR)) {
+            throw new IllegalArgumentException("Modul nie posiada hangaru");
+        }
+
+        if(pojemnoscHangaru < pojazdy.size() + 1) {
+            throw new IllegalArgumentException("Pojemnosc hangaru jest pelna");
+        }
+
+        if(pojazdy.contains(pojazd)) {
+            throw new IllegalArgumentException("Hangar ma juz ten pojazd");
+        }
+
+        pojazdy.add(pojazd);
     }
 
     public void dodajStacje(Stacja stacja) {
@@ -107,6 +126,22 @@ public class ModulBazowy extends Ext {
         }
     }
 
+
+    public void usunPojazd(Pojazd pojazd) {
+        if(pojazdy.contains(pojazd)){
+            pojazdy.remove(pojazd);
+            pojazd.remove();
+        }
+    }
+
+
+    public void usunTowar(Towar towar) {
+        if(towary.containsKey(towar.getId())) {
+            towary.remove(towar.getId());
+            towar.remove();
+        }
+    }
+
     public EnumSet<TypModulu> getTypModulu() {
         return typyModulu;
     }
@@ -116,7 +151,7 @@ public class ModulBazowy extends Ext {
             throw new IllegalArgumentException("Modul nie posiada przechowalni");
         }
         float sum = 0;
-        List<Towar> t = (List<Towar>) towary.values();
+        List<Towar> t = new ArrayList<>(towary.values());
 
         for(Towar towar : t) {
             sum += towar.getRozmiar();
@@ -130,7 +165,16 @@ public class ModulBazowy extends Ext {
             throw new IllegalArgumentException("Modul nie posiada przechwalni");
         }
 
-        return pojemnoscHangaru;
+        return pojemnoscPrzechowalni;
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public int getPojemnoscHangaru() {
+        return pojazdy.size();
     }
 
     @Override
@@ -138,6 +182,25 @@ public class ModulBazowy extends Ext {
         if(stacja != null) {
             stacja.usunModul(this);
             stacja = null;
+        }
+
+        if(typyModulu.contains(TypModulu.HANGAR)) {
+            List<Pojazd> tmp = new ArrayList<>(pojazdy);
+            pojazdy.clear();
+
+            for(Pojazd pojazd : tmp) {
+                pojazd.remove();
+            }
+        }
+
+        if(typyModulu.contains(TypModulu.PRZECHOWALNIA)) {
+            List<Towar> tmp = new ArrayList<>(towary.values());
+
+            towary.clear();
+
+            for(Towar towar : tmp) {
+                towar.remove();
+            }
         }
 
         return super.remove();
@@ -171,9 +234,5 @@ public class ModulBazowy extends Ext {
                 ", stacja=" + stacja.getName() +
                 ", typyModulu=" + typyModulu +
                 "}";
-    }
-
-    public long getId() {
-        return id;
     }
 }

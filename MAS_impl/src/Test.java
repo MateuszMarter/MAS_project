@@ -1,4 +1,7 @@
 import backend.Raport;
+import backend.modul.Towar;
+import backend.pojazd.Cargo;
+import backend.pojazd.Transport;
 import backend.pracownik.Pracownik;
 
 import backend.modul.ModulBazowy;
@@ -116,8 +119,21 @@ public class Test {
             awansowany.wyswietlZadaniaPracownika(k3);
 
             System.out.println("====Hangar i Przechowalnia====");
+            //hangar
+            Cargo c1 = new Cargo(100, 68, 100, m4);
+            Cargo c2 = new Cargo(100, 68, 100, m4);
+            Transport t1 = new Transport(50, 100, 100, m4);
 
-            Ext.save();
+            Towar tw1 = new Towar(m6, 12.0f);
+            Towar tw2 = new Towar(m6, 10.5f);
+
+            System.out.println(Ext.getExt(c1.getClass()));
+            System.out.println(Ext.getExt(tw1.getClass()));
+
+            s2.remove();
+
+            System.out.println(Ext.getExt(c1.getClass()));
+            System.out.println(Ext.getExt(tw1.getClass()));
 
         } catch (Exception e) {
             e.printStackTrace();
