@@ -35,10 +35,19 @@ public class LoginWindow extends JFrame {
 
         List<Dowodca> dowodcy = Ext.getExt(Dowodca.class);
         for(Dowodca dowodca : dowodcy) {
-            comboBox.addItem(dowodca.getImie() + ' ' + dowodca.getNazwisko());
+            comboBox.addItem(dowodca.getImie() + ' ' + dowodca.getNazwisko() + " id:" + dowodca.getId());
         }
 
         JButton loginButton = new JButton("Zaloguj");
+        loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginButton.setPreferredSize(new Dimension(200, 20));
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loginButton.setBackground(Color.LIGHT_GRAY);
+
+        loginButton.addActionListener(e -> {
+            String selectedItem = (String) comboBox.getSelectedItem();
+            Ext.getExt();
+        });
 
         panel.add(label);
         panel.add(comboBox);
