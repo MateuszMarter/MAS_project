@@ -1,4 +1,4 @@
-package frontend.Models;
+package frontend.Moje_ZadaniaTab;
 
 import backend.Raport;
 

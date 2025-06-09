@@ -1,9 +1,10 @@
-package frontend;
+package frontend.Moje_ZadaniaTab;
 
 import backend.Raport;
 import backend.pracownik.Dowodca;
 import backend.zadanie.TypZadania;
 import backend.zadanie.Zadanie;
+import frontend.Refreshable;
 
 import javax.swing.*;
 import java.awt.*;

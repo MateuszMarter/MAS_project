@@ -17,6 +17,10 @@ public class Kadet extends Pracownik {
     }
 
     public float obliczSrednia() {
+        if(oceny.isEmpty()) {
+            return 0;
+        }
+        
         float sum = 0;
         for(int ocena : oceny) {
             sum += ocena;

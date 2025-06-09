@@ -1,9 +1,10 @@
-package frontend.Views;
+package frontend;
 
 import backend.Raport;
 import backend.pracownik.Dowodca;
 import backend.pracownik.Pracownik;
 import backend.zadanie.Zadanie;
+import frontend.PracownicyTab.WorkerView;
 
 import javax.swing.*;
 import java.awt.*;

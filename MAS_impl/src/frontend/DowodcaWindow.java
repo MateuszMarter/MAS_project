@@ -1,9 +1,9 @@
 package frontend;
 
 import backend.pracownik.Dowodca;
-import frontend.Views.MyTasksView;
-import frontend.Views.WorkersView;
-import util.Ext;
+import frontend.Moje_ZadaniaTab.MyTasksView;
+import frontend.PracownicyTab.WorkersView;
+import frontend.ZadaniaTab.TasksView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,7 +75,7 @@ public class DowodcaWindow extends JFrame {
 
     private void showTasks() {
         mainPanel.removeAll();
-        mainPanel.add(new TasksWindow(dowodca), BorderLayout.CENTER);
+        mainPanel.add(new TasksView(dowodca), BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
     }

@@ -1,7 +1,6 @@
-package frontend.Models;
+package frontend.ZadaniaTab;
 
 import backend.Raport;
-import backend.pracownik.Pracownik;
 import backend.zadanie.Zadanie;
 
 import javax.swing.table.AbstractTableModel;
@@ -13,6 +12,7 @@ public class TaskTableModel extends AbstractTableModel {
 
     public TaskTableModel() {
         zadania = Raport.getZadania();
+        System.out.println(Raport.getZadania());
     }
 
     @Override

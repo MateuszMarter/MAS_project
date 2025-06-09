@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Raport extends Ext {
-    private static final List<Zadanie> zadania = new ArrayList<>(); //wymagane
-    private String nazwaZadania; //wymagane
-    private String opis; //opcjonalne
-    private LocalDateTime deadline; //wymagane
+    private static final List<Zadanie> zadania = new ArrayList<>();
+    private String nazwaZadania;
+    private String opis;
+    private LocalDateTime deadline;
 
-    private Pracownik pracownik; //wymagane
-    private Zadanie zadanie; //wymagane
+    private Pracownik pracownik;
+    private Zadanie zadanie;
 
     public Raport(String nazwaZadania, Pracownik pracownik, Zadanie zadanie, LocalDateTime deadline) {
         setNazwaZadania(nazwaZadania);
@@ -55,6 +55,7 @@ public class Raport extends Ext {
 
     public static void dodajZadanie(Zadanie zadanie) {
         zadania.add(zadanie);
+        System.out.println(zadanie.getId());
     }
 
     public static void usunZadanie(Zadanie zadanie) {
@@ -110,6 +111,9 @@ public class Raport extends Ext {
     public int remove() {
         pracownik.getRaporty().remove(this);
         zadanie.getRaporty().remove(this);
+        if(zadanie.getRaporty().isEmpty()) {
+            zadanie.setStatus(StatusZadania.DOSTEPNE);
+        }
 
         return super.remove();
     }

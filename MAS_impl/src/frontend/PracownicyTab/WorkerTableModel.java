@@ -1,6 +1,5 @@
-package frontend.Models;
+package frontend.PracownicyTab;
 
-import backend.pracownik.Dowodca;
 import backend.pracownik.Pracownik;
 
 import javax.swing.table.AbstractTableModel;
@@ -44,9 +43,5 @@ public class WorkerTableModel extends AbstractTableModel {
 
     public Pracownik getPracownikAt(int selectedRow) {
         return pracownicy.get(selectedRow);
-    }
-
-    public void setPracownicy(Dowodca dowodca) {
-        this.pracownicy = dowodca.wyswietlListePracownikow();
     }
 }

@@ -1,8 +1,7 @@
-package frontend.Views;
+package frontend.PracownicyTab;
 
 import backend.pracownik.Dowodca;
 import backend.pracownik.Pracownik;
-import frontend.Models.WorkerTableModel;
 
 import javax.swing.*;
 import java.awt.*;

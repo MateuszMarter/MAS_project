@@ -1,10 +1,8 @@
-package frontend.Views;
+package frontend.Moje_ZadaniaTab;
 
 import backend.Raport;
 import backend.pracownik.Dowodca;
 import backend.zadanie.Zadanie;
-import frontend.Models.MyTaskTableModel;
-import frontend.MyTaskWindow;
 import frontend.Refreshable;
 
 import javax.swing.*;
