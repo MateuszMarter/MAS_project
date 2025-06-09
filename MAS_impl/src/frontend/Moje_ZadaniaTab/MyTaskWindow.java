@@ -13,7 +13,18 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type My task window.
+ */
 public class MyTaskWindow extends JFrame {
+    /**
+     * Instantiates a new My task window.
+     *
+     * @param dowodca the dowodca
+     * @param raport  the raport
+     * @param zadanie the zadanie
+     * @param view    the view
+     */
     public MyTaskWindow(Dowodca dowodca, Raport raport, Zadanie zadanie, Refreshable view) {
         super(raport.getNazwaZadania());
 
@@ -45,7 +56,9 @@ public class MyTaskWindow extends JFrame {
             JComboBox<Integer> hourBox = new JComboBox<>();
             JComboBox<Integer> minuteBox = new JComboBox<>();
 
-            for(int y = 2023; y <= 2035; y++) {
+            LocalDateTime current = selectedDeadline[0];
+
+            for(int y = 2025; y <= 2035; y++) {
                 yearBox.addItem(y);
             }
 
@@ -65,12 +78,11 @@ public class MyTaskWindow extends JFrame {
                 minuteBox.addItem(m);
             }
 
-            LocalDateTime current = selectedDeadline[0];
             yearBox.setSelectedItem(current.getYear());
             monthBox.setSelectedItem(current.getMonthValue());
             dayBox.setSelectedItem(current.getDayOfMonth());
             hourBox.setSelectedItem(current.getHour());
-            minuteBox.setSelectedItem((current.getMinute() / 5) * 5);
+            minuteBox.setSelectedItem(current.getMinute());
 
             JPanel panel = new JPanel();
             panel.add(new JLabel("Rok:"));
@@ -112,6 +124,16 @@ public class MyTaskWindow extends JFrame {
 
         JButton saveButton = new JButton("Zapisz");
         saveButton.addActionListener(e -> {
+            if (nazwaTextField.getText() == null || nazwaTextField.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nazwa jest wymagana", "Brak informacji", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (selectedDeadline[0].isBefore(LocalDateTime.now())) {
+                JOptionPane.showMessageDialog(this, "Deadline musi być w przyszłości", "Nieprawidłowa data", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             raport.setNazwaZadania(nazwaTextField.getText());
             raport.setOpis(opisTextField.getText());
             raport.setDeadline(selectedDeadline[0]);

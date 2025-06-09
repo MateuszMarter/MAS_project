@@ -9,8 +9,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Tasks view.
+ */
 public class TasksView extends JPanel implements Refreshable {
     private List<Zadanie> zadania;
+
+    /**
+     * Instantiates a new Tasks view.
+     *
+     * @param dowodca the dowodca
+     */
     public TasksView(Dowodca dowodca) {
         setLayout(new BorderLayout());
 

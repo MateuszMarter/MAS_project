@@ -4,14 +4,23 @@ import backend.pracownik.Dowodca;
 import frontend.Moje_ZadaniaTab.MyTasksView;
 import frontend.PracownicyTab.WorkersView;
 import frontend.ZadaniaTab.TasksView;
+import util.Ext;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Dowodca window.
+ */
 public class DowodcaWindow extends JFrame {
     private Dowodca dowodca;
     private JPanel mainPanel;
 
+    /**
+     * Instantiates a new Dowodca window.
+     *
+     * @param dowodca the dowodca
+     */
     public DowodcaWindow(Dowodca dowodca) {
         super("Menu Dowodcy");
         this.dowodca = dowodca;
@@ -21,7 +30,7 @@ public class DowodcaWindow extends JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                //Ext.save();
+                Ext.save();
                 dispose();
                 System.exit(0);
             }

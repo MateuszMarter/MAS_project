@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The type Stacja.
+ */
 public class Stacja extends Ext {
     private final static Set<String> zajeteNazwy = new HashSet<>();
 
@@ -20,6 +23,12 @@ public class Stacja extends Ext {
 
     private final List<ModulBazowy> moduly = new ArrayList<>();
 
+    /**
+     * Instantiates a new Stacja.
+     *
+     * @param nazwa       the nazwa
+     * @param lokalizacja the lokalizacja
+     */
     public Stacja(String nazwa, String lokalizacja) {
         setNazwa(nazwa);
         setSiedziba(lokalizacja);
@@ -28,6 +37,11 @@ public class Stacja extends Ext {
         this.zaloga = new Zaloga(this);
     }
 
+    /**
+     * Sets nazwa.
+     *
+     * @param nazwa the nazwa
+     */
     public void setNazwa(String nazwa) {
         if(zajeteNazwy.contains(nazwa.toLowerCase())) {
             throw new IllegalArgumentException("Nazwa jest juz zajeta");
@@ -37,6 +51,11 @@ public class Stacja extends Ext {
         zajeteNazwy.add(nazwa.toLowerCase());
     }
 
+    /**
+     * Sets siedziba.
+     *
+     * @param siedziba the siedziba
+     */
     public void setSiedziba(String siedziba) {
         String[] split = siedziba.split(",");
         if(split.length != 2) {
@@ -46,16 +65,32 @@ public class Stacja extends Ext {
         this.siedziba = siedziba;
     }
 
+    /**
+     * Dodaj modul.
+     *
+     * @param modul the modul
+     */
     public void dodajModul(ModulBazowy modul) {
         moduly.add(modul);
         modul.dodajStacje(this);
     }
 
 
+    /**
+     * Has module boolean.
+     *
+     * @param modulBazowy the modul bazowy
+     * @return the boolean
+     */
     public boolean hasModule(ModulBazowy modulBazowy) {
         return moduly.contains(modulBazowy);
     }
 
+    /**
+     * Dodaj moduly.
+     *
+     * @param moduly the moduly
+     */
     public void dodajModuly(List<ModulBazowy> moduly) {
         if(moduly.isEmpty()) {
             throw new IllegalArgumentException("Musi być conajmniej jeden modul");
@@ -64,6 +99,11 @@ public class Stacja extends Ext {
         this.moduly.addAll(moduly);
     }
 
+    /**
+     * Usun modul.
+     *
+     * @param modul the modul
+     */
     public void usunModul(ModulBazowy modul) {
         if(moduly.contains(modul)) {
             if(moduly.size() < 2) {
@@ -85,11 +125,21 @@ public class Stacja extends Ext {
         }
     }
 
+    /**
+     * Gets zaloga.
+     *
+     * @return the zaloga
+     */
     public Zaloga getZaloga() {
         return zaloga;
     }
 
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return nazwa;
     }
@@ -119,6 +169,11 @@ public class Stacja extends Ext {
                 "}";
     }
 
+    /**
+     * Gets moduly.
+     *
+     * @return the moduly
+     */
     public List<ModulBazowy> getModuly() {
         return moduly;
     }

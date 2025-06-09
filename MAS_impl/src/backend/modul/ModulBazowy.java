@@ -8,6 +8,9 @@ import util.IdGenerator;
 import java.util.*;
 
 
+/**
+ * The type Modul bazowy.
+ */
 public class ModulBazowy extends Ext {
     private long id;
     private StatusModulu statusModulu;
@@ -21,12 +24,27 @@ public class ModulBazowy extends Ext {
     private int pojemnoscHangaru;
     private List<Pojazd> pojazdy;
 
+    /**
+     * Stworz modul bazowy.
+     *
+     * @param statusModulu status modulu
+     * @param stacja stacja
+     * @return modul bazowy
+     */
     public static ModulBazowy stworzModul(StatusModulu statusModulu, Stacja stacja) {
         ModulBazowy modul = new ModulBazowy(statusModulu, stacja, EnumSet.noneOf(TypModulu.class));
 
         return modul;
     }
 
+    /**
+     * Stworz hangar.
+     *
+     * @param statusModulu status modulu
+     * @param stacja stacja
+     * @param maxPojemnosc max pojemnosc
+     * @return hangar
+     */
     public static ModulBazowy stworzHangar(StatusModulu statusModulu, Stacja stacja, int maxPojemnosc) {
         ModulBazowy modul = new ModulBazowy(statusModulu, stacja, EnumSet.of(TypModulu.HANGAR));
         modul.initLists(modul);
@@ -35,6 +53,14 @@ public class ModulBazowy extends Ext {
         return modul;
     }
 
+    /**
+     * Stworz przechowalnie modul bazowy.
+     *
+     * @param statusModulu the status modulu
+     * @param stacja the stacja
+     * @param maxPojemnosc the max pojemnosc
+     * @return przechowalnia
+     */
     public static ModulBazowy stworzPrzechowalnie(StatusModulu statusModulu, Stacja stacja, int maxPojemnosc) {
         ModulBazowy modul = new ModulBazowy(statusModulu, stacja, EnumSet.of(TypModulu.PRZECHOWALNIA));
         modul.initLists(modul);
@@ -43,6 +69,15 @@ public class ModulBazowy extends Ext {
         return modul;
     }
 
+    /**
+     * Stworz modul mieszany.
+     *
+     * @param statusModulu          status modulu
+     * @param stacja                stacja
+     * @param pojenoscHangaru       pojenosc hangaru
+     * @param pojemnoscPrzechowalni pojemnosc przechowalni
+     * @return modul mieszany
+     */
     public static ModulBazowy stworzModulMieszany(StatusModulu statusModulu, Stacja stacja, int pojenoscHangaru, int pojemnoscPrzechowalni) {
         ModulBazowy modul = new ModulBazowy(statusModulu, stacja, EnumSet.of(TypModulu.HANGAR, TypModulu.PRZECHOWALNIA));
         modul.initLists(modul);
@@ -50,6 +85,15 @@ public class ModulBazowy extends Ext {
         modul.setPojemnoscPrzechowalni(pojemnoscPrzechowalni);
 
         return modul;
+    }
+
+    private ModulBazowy(StatusModulu statusModulu, Stacja stacja, EnumSet<TypModulu> typModulu) {
+        this.statusModulu = statusModulu;
+        this.id = IdGenerator.genId();
+        this.stacja = stacja;
+        stacja.dodajModul(this);
+        towary = new HashMap<>();
+        this.typyModulu = typModulu;
     }
 
     private void initLists(ModulBazowy modulBazowy) {
@@ -71,15 +115,11 @@ public class ModulBazowy extends Ext {
     }
 
 
-    private ModulBazowy(StatusModulu statusModulu, Stacja stacja, EnumSet<TypModulu> typModulu) {
-        this.statusModulu = statusModulu;
-        this.id = IdGenerator.genId();
-        this.stacja = stacja;
-        stacja.dodajModul(this);
-        towary = new HashMap<>();
-        this.typyModulu = typModulu;
-    }
-
+    /**
+     * Dodaj towar.
+     *
+     * @param towar towar
+     */
     public void dodajTowar(Towar towar) {
         if(!typyModulu.contains(TypModulu.PRZECHOWALNIA)) {
             throw new IllegalArgumentException("Modul nie posiada przechowalni");
@@ -93,6 +133,11 @@ public class ModulBazowy extends Ext {
         System.out.println(towary.values());
     }
 
+    /**
+     * Dodaj pojazd.
+     *
+     * @param pojazd pojazd
+     */
     public void dodajPojazd(Pojazd pojazd) {
         if(!typyModulu.contains(TypModulu.HANGAR)) {
             throw new IllegalArgumentException("Modul nie posiada hangaru");
@@ -109,11 +154,21 @@ public class ModulBazowy extends Ext {
         pojazdy.add(pojazd);
     }
 
+    /**
+     * Dodaj stacje.
+     *
+     * @param stacja stacja
+     */
     public void dodajStacje(Stacja stacja) {
         this.stacja = stacja;
     }
 
-    public void removeStacja(Stacja stacja) {
+    /**
+     * Usun stacje.
+     *
+     * @param stacja stacja
+     */
+    public void usunStacje(Stacja stacja) {
         if(this.stacja != stacja && stacja != null) {
             throw new IllegalArgumentException("Modul nalezy do innej stacji");
         }
@@ -127,6 +182,11 @@ public class ModulBazowy extends Ext {
     }
 
 
+    /**
+     * Usun pojazd.
+     *
+     * @param pojazd pojazd
+     */
     public void usunPojazd(Pojazd pojazd) {
         if(pojazdy.contains(pojazd)){
             pojazdy.remove(pojazd);
@@ -135,6 +195,11 @@ public class ModulBazowy extends Ext {
     }
 
 
+    /**
+     * Usun towar.
+     *
+     * @param towar towar
+     */
     public void usunTowar(Towar towar) {
         if(towary.containsKey(towar.getId())) {
             towary.remove(towar.getId());
@@ -142,10 +207,20 @@ public class ModulBazowy extends Ext {
         }
     }
 
+    /**
+     * Gets typ modulu.
+     *
+     * @return typ modulu
+     */
     public EnumSet<TypModulu> getTypModulu() {
         return typyModulu;
     }
 
+    /**
+     * Aktualna pojemnosc float.
+     *
+     * @return float
+     */
     public float aktualnaPojemnosc() {
         if(!typyModulu.contains(TypModulu.PRZECHOWALNIA)) {
             throw new IllegalArgumentException("Modul nie posiada przechowalni");
@@ -160,6 +235,12 @@ public class ModulBazowy extends Ext {
         return sum;
     }
 
+    /**
+     * Gets pojemnosc przechowalni.
+     *
+     * @param modulBazowy modul bazowy
+     * @return pojemnosc przechowalni
+     */
     public float getPojemnoscPrzechowalni(ModulBazowy modulBazowy) {
         if(!modulBazowy.getTypModulu().contains(TypModulu.PRZECHOWALNIA)) {
             throw new IllegalArgumentException("Modul nie posiada przechwalni");
@@ -169,10 +250,20 @@ public class ModulBazowy extends Ext {
     }
 
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Gets pojemnosc hangaru.
+     *
+     * @return zajeta pojemnosc hangaru
+     */
     public int getPojemnoscHangaru() {
         return pojazdy.size();
     }

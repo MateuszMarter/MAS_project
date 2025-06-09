@@ -13,7 +13,17 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type Task new raport window.
+ */
 public class TaskNewRaportWindow extends JFrame {
+    /**
+     * Instantiates a new Task new raport window.
+     *
+     * @param dowodca the dowodca
+     * @param zadanie the zadanie
+     * @param view    the view
+     */
     public TaskNewRaportWindow(Dowodca dowodca, Zadanie zadanie, Refreshable view) {
         super("Nowy raport dla zadania: " + zadanie.getId());
 
@@ -97,6 +107,16 @@ public class TaskNewRaportWindow extends JFrame {
         JButton saveButton = new JButton("Zapisz");
         saveButton.addActionListener(e -> {
             Pracownik pracownik = (Pracownik) pracownikComboBox.getSelectedItem();
+
+            if(pracownik == null) {
+                JOptionPane.showMessageDialog(this, "Wybor pracownika jest wymagany", "Brak informacji", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if(nazwaTextField.getText() == null || nazwaTextField.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nazwa jest wymagana", "Brak informacji", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             Raport raport = new Raport(
                     nazwaTextField.getText(),
                     pracownik,

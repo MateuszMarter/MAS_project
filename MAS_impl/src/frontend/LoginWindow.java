@@ -9,7 +9,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/**
+ * The type Login window.
+ */
 public class LoginWindow extends JFrame {
+    /**
+     * Instantiates a new Login window.
+     */
     public LoginWindow() {
         super("Login");
 

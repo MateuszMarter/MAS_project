@@ -5,10 +5,18 @@ import backend.pracownik.Pracownik;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
+/**
+ * The type Worker table model.
+ */
 public class WorkerTableModel extends AbstractTableModel {
     private List<Pracownik> pracownicy;
     private final String[] columnNames = {"ID","Imie", "Nazwisko", "Liczba zadan"};
 
+    /**
+     * Instantiates a new Worker table model.
+     *
+     * @param pracownicy the pracownicy
+     */
     public WorkerTableModel(List<Pracownik> pracownicy) {
         this.pracownicy = pracownicy;
     }
@@ -41,6 +49,12 @@ public class WorkerTableModel extends AbstractTableModel {
         };
     }
 
+    /**
+     * Gets pracownik at.
+     *
+     * @param selectedRow the selected row
+     * @return the pracownik at
+     */
     public Pracownik getPracownikAt(int selectedRow) {
         return pracownicy.get(selectedRow);
     }

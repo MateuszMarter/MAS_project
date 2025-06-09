@@ -13,11 +13,21 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * The type Worker view.
+ */
 public class WorkerView extends JFrame implements Refreshable {
     private final MyTaskTableModel model;
     private final Pracownik pracownik;
     private final WorkersView workersView;
 
+    /**
+     * Instantiates a new Worker view.
+     *
+     * @param dowodca     the dowodca
+     * @param pracownik   the pracownik
+     * @param workersView the workers view
+     */
     public WorkerView(Dowodca dowodca, Pracownik pracownik, WorkersView workersView) {
         super(pracownik.getImie() + ' ' + pracownik.getNazwisko());
 
@@ -36,26 +46,6 @@ public class WorkerView extends JFrame implements Refreshable {
         infoPanel.add(new JLabel("Zarobki: " + pracownik.obliczPensje() + " zł"));
 
         add(infoPanel, BorderLayout.NORTH);
-
-        /*TaskTableModel model = new TaskTableModel();
-        JTable table = new JTable(model);
-
-        WorkerView thisView = this;
-
-        table.addMouseListener(new MouseAdapter() {
-           @Override
-           public void mouseClicked(MouseEvent e) {
-               if (e.getClickCount() == 2) {
-                   int selectedRow = table.getSelectedRow();
-
-                   if (selectedRow >= 0) {
-                       Zadanie zadanie = model.getZadanieAt(selectedRow);
-
-                       new WorkerTaskWindow(zadanie)
-                   }
-               }
-           }
-        });*/
 
         model = new MyTaskTableModel(pracownik.getRaporty());
         JTable table = new JTable(model);

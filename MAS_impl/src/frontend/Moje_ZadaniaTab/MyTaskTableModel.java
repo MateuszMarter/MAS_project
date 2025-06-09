@@ -5,11 +5,19 @@ import backend.Raport;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
+/**
+ * The type My task table model.
+ */
 public class MyTaskTableModel extends AbstractTableModel {
 
     private List<Raport> raporty;
     private final String[] columnNames = {"Status", "Typ", "Pracownik"};
 
+    /**
+     * Instantiates a new My task table model.
+     *
+     * @param raporty the raporty
+     */
     public MyTaskTableModel(List<Raport> raporty) {
         this.raporty = raporty;
     }
@@ -49,10 +57,21 @@ public class MyTaskTableModel extends AbstractTableModel {
         };
     }
 
+    /**
+     * Gets raport at.
+     *
+     * @param selectedRow the selected row
+     * @return the raport at
+     */
     public Raport getRaportAt(int selectedRow) {
         return raporty.get(selectedRow);
     }
 
+    /**
+     * Sets raporty.
+     *
+     * @param raporty the raporty
+     */
     public void setRaporty(List<Raport> raporty) {
         this.raporty = raporty;
     }

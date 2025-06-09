@@ -5,6 +5,9 @@ import util.IdGenerator;
 
 import java.util.List;
 
+/**
+ * The type Towar.
+ */
 public class Towar extends Ext {
     private final static List<Long> takenIds = new java.util.ArrayList<>();
 
@@ -12,6 +15,12 @@ public class Towar extends Ext {
     private final float rozmiar;
     private ModulBazowy modulBazowy;
 
+    /**
+     * Instantiates a new Towar.
+     *
+     * @param modulBazowy the modul bazowy
+     * @param rozmiar     the rozmiar
+     */
     public Towar(ModulBazowy modulBazowy, float rozmiar) {
         setId();
         this.rozmiar = rozmiar;
@@ -30,6 +39,11 @@ public class Towar extends Ext {
         }
     }
 
+    /**
+     * Sets modul.
+     *
+     * @param modulBazowy the modul bazowy
+     */
     public void setModul(ModulBazowy modulBazowy) {
         if(!modulBazowy.getTypModulu().contains(TypModulu.PRZECHOWALNIA)) {
             throw new IllegalArgumentException("Modul nie posiada przechwalni");
@@ -45,14 +59,29 @@ public class Towar extends Ext {
         }
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Gets modul bazowy.
+     *
+     * @return the modul bazowy
+     */
     public ModulBazowy getModulBazowy() {
         return modulBazowy;
     }
 
+    /**
+     * Gets rozmiar.
+     *
+     * @return the rozmiar
+     */
     public float getRozmiar() {
         return rozmiar;
     }

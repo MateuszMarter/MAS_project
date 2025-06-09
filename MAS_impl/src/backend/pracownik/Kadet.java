@@ -5,17 +5,37 @@ import backend.Zaloga;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Kadet.
+ */
 public class Kadet extends Pracownik {
     private final List<Integer> oceny = new ArrayList<>();
 
+    /**
+     * Instantiates a new Kadet.
+     *
+     * @param imie     the imie
+     * @param nazwisko the nazwisko
+     * @param zaloga   the zaloga
+     */
     public Kadet(String imie, String nazwisko, Zaloga zaloga) {
         super(imie, nazwisko, zaloga);
     }
 
+    /**
+     * Dodaj ocene.
+     *
+     * @param ocena the ocena
+     */
     public void dodajOcene(int ocena) {
         oceny.add(ocena);
     }
 
+    /**
+     * Oblicz srednia float.
+     *
+     * @return the float
+     */
     public float obliczSrednia() {
         if(oceny.isEmpty()) {
             return 0;
@@ -29,6 +49,11 @@ public class Kadet extends Pracownik {
         return  sum / oceny.size();
     }
 
+    /**
+     * Promocja dowodca.
+     *
+     * @return the dowodca
+     */
     public Dowodca promocja() {
         Dowodca dowodca = new Dowodca(this);
         super.remove();

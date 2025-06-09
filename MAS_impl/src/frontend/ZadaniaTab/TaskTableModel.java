@@ -6,10 +6,16 @@ import backend.zadanie.Zadanie;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
+/**
+ * The type Task table model.
+ */
 public class TaskTableModel extends AbstractTableModel {
     private List<Zadanie> zadania;
     private final String[] columnNames = {"Status", "Typ", "Pracownik"};
 
+    /**
+     * Instantiates a new Task table model.
+     */
     public TaskTableModel() {
         zadania = Raport.getZadania();
         System.out.println(Raport.getZadania());
@@ -57,6 +63,12 @@ public class TaskTableModel extends AbstractTableModel {
         }
     }
 
+    /**
+     * Gets zadanie at.
+     *
+     * @param selectedRow the selected row
+     * @return the zadanie at
+     */
     public Zadanie getZadanieAt(int selectedRow) {
         return zadania.get(selectedRow);
     }

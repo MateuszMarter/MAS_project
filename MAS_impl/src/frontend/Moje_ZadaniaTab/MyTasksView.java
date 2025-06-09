@@ -11,10 +11,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/**
+ * The type My tasks view.
+ */
 public class MyTasksView extends JPanel implements Refreshable {
     private final MyTaskTableModel model;
     private final Dowodca dowodca;
 
+    /**
+     * Instantiates a new My tasks view.
+     *
+     * @param dowodca the dowodca
+     */
     public MyTasksView(Dowodca dowodca) {
         setLayout(new BorderLayout());
 
@@ -29,13 +37,6 @@ public class MyTasksView extends JPanel implements Refreshable {
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
-                /*if(evt.getClickCount() == 1) {
-                    int selectedRow = table.getSelectedRow();
-                    if(selectedRow >= 0) {
-                        Raport wybranyRaport = model.getRaportAt(selectedRow);
-                        System.out.println(wybranyRaport.getAllPracownicy());
-                    }
-                }*/
 
                 if (evt.getClickCount() == 2) {
                     int selectedRow = table.getSelectedRow();

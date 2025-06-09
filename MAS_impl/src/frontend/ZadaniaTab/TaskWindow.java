@@ -8,7 +8,17 @@ import frontend.Refreshable;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Task window.
+ */
 public class TaskWindow extends JFrame {
+    /**
+     * Instantiates a new Task window.
+     *
+     * @param dowodca the dowodca
+     * @param zadanie the zadanie
+     * @param view    the view
+     */
     public TaskWindow(Dowodca dowodca, Zadanie zadanie, Refreshable view) {
         super("Ustawienia zadania: " + zadanie.getId());
 

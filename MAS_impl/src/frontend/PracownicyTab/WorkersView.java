@@ -9,9 +9,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/**
+ * The type Workers view.
+ */
 public class WorkersView extends JPanel {
     private final WorkerTableModel model;
 
+    /**
+     * Instantiates a new Workers view.
+     *
+     * @param dowodca the dowodca
+     */
     public WorkersView(Dowodca dowodca) {
         setLayout(new BorderLayout());
 
@@ -43,6 +51,9 @@ public class WorkersView extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * Refresh.
+     */
     public void refresh() {
         revalidate();
         repaint();

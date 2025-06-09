@@ -3,12 +3,22 @@ package backend.pojazd;
 import backend.modul.ModulBazowy;
 import util.Ext;
 
+/**
+ * The type Pojazd.
+ */
 public class Pojazd extends Ext {
     private float stanPaliwa;
     private float maxStanPaliwa;
 
     private ModulBazowy modulBazowy;
 
+    /**
+     * Instantiates a new Pojazd.
+     *
+     * @param stanPaliwa    the stan paliwa
+     * @param maxStanPaliwa the max stan paliwa
+     * @param modulBazowy   the modul bazowy
+     */
     public Pojazd(float stanPaliwa, float maxStanPaliwa, ModulBazowy modulBazowy) {
         init(maxStanPaliwa, stanPaliwa);
         this.modulBazowy = modulBazowy;
@@ -21,6 +31,11 @@ public class Pojazd extends Ext {
         setStanPaliwa(stanPaliwa);
     }
 
+    /**
+     * Sets stan paliwa.
+     *
+     * @param stanPaliwa the stan paliwa
+     */
     public void setStanPaliwa(float stanPaliwa) {
         if(stanPaliwa < 1) {
             throw new IllegalArgumentException("Stan paliwa musi byc wiekszy od 0");
@@ -33,6 +48,11 @@ public class Pojazd extends Ext {
         this.stanPaliwa = stanPaliwa;
     }
 
+    /**
+     * Sets max stan paliwa.
+     *
+     * @param maxStanPaliwa the max stan paliwa
+     */
     public void setMaxStanPaliwa(float maxStanPaliwa) {
         if(maxStanPaliwa < 1) {
             throw new IllegalArgumentException("Max stan paliwa musi byc wiekszy od 0");
@@ -46,6 +66,11 @@ public class Pojazd extends Ext {
     }
 
 
+    /**
+     * Gets stan paliwa.
+     *
+     * @return the stan paliwa
+     */
     public float getStanPaliwa() {
         return stanPaliwa;
     }
