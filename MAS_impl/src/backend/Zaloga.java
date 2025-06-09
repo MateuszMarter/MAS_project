@@ -15,7 +15,7 @@ public class Zaloga extends Ext {
     private Stacja stacja;
 
     public Zaloga(Stacja stacja) {
-        this.id = Long.parseLong(IdGenerator.genId());
+        this.id = IdGenerator.genId();
         this.stacja = stacja;
     }
 

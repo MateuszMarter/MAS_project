@@ -65,6 +65,20 @@ public class Raport extends Ext {
         return this.zadanie;
     }
 
+
+    public String getNazwaZadania() {
+        return nazwaZadania;
+    }
+
+    public Pracownik getPracownik() {
+        return pracownik;
+    }
+
+
+    public String getOpis() {
+        return opis;
+    }
+
     @Override
     public String toString() {
         return "Raport{" +
@@ -74,5 +88,9 @@ public class Raport extends Ext {
                 ", pracownik=" + pracownik +
                 ", zadanie=" + zadanie +
                 '}';
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 }

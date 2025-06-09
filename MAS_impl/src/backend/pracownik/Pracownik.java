@@ -25,7 +25,7 @@ public abstract class Pracownik extends Ext {
         this.imie = imie;
         this.nazwisko = nazwisko;
         setZaloga(zaloga);
-        this.id = Long.parseLong(IdGenerator.genId());
+        this.id = IdGenerator.genId();
     }
 
     private void setZaloga(Zaloga zaloga) {
@@ -62,7 +62,7 @@ public abstract class Pracownik extends Ext {
         PENSJA_PODSTAWOWA = pensjaPodstawowa;
     }
 
-    public double getId() {
+    public long getId() {
         return id;
     }
 

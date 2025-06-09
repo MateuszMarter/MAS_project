@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class IdGenerator {
-    public static String genId() {
+    public static long genId() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
-        return now.format(formatter);
+        return System.currentTimeMillis();
     }
 }

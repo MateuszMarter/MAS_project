@@ -78,7 +78,7 @@ public class Dowodca extends Pracownik {
         raport.setZadnie(noweZadanie);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Dowodca{" +
                 "id=" + super.getId() +
@@ -87,5 +87,10 @@ public class Dowodca extends Pracownik {
                 ", zaloga=" + super.getZaloga().getId() +
                 ", iloscDowodzonychMisji=" + iloscDowodzonychMisji +
                 '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return super.getImie() + ' ' + super.getNazwisko();
     }
 }

@@ -23,7 +23,7 @@ public class Stacja extends Ext {
     public Stacja(String nazwa, String lokalizacja) {
         setNazwa(nazwa);
         setSiedziba(lokalizacja);
-        this.id = Long.parseLong(IdGenerator.genId());
+        this.id = IdGenerator.genId();
         dodajModul(ModulBazowy.stworzModul(StatusModulu.OPERACYJNA, this));
         this.zaloga = new Zaloga(this);
     }

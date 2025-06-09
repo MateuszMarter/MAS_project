@@ -29,13 +29,13 @@ public class LoginWindow extends JFrame {
         JLabel label = new JLabel("Login");
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JComboBox<String> comboBox = new JComboBox<>();
+        JComboBox<Dowodca> comboBox = new JComboBox<>();
         comboBox.setMaximumSize(new Dimension(200, 20));
         comboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         List<Dowodca> dowodcy = Ext.getExt(Dowodca.class);
         for(Dowodca dowodca : dowodcy) {
-            comboBox.addItem(dowodca.getImie() + ' ' + dowodca.getNazwisko() + " id:" + dowodca.getId());
+            comboBox.addItem(dowodca);
         }
 
         JButton loginButton = new JButton("Zaloguj");
@@ -45,8 +45,11 @@ public class LoginWindow extends JFrame {
         loginButton.setBackground(Color.LIGHT_GRAY);
 
         loginButton.addActionListener(e -> {
-            String selectedItem = (String) comboBox.getSelectedItem();
-            Ext.getExt();
+            Dowodca dowodca = (Dowodca) comboBox.getSelectedItem();
+
+            dispose();
+
+            new DowodcaWindow(dowodca);
         });
 
         panel.add(label);

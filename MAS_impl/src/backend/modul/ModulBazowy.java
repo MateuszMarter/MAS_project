@@ -73,7 +73,7 @@ public class ModulBazowy extends Ext {
 
     private ModulBazowy(StatusModulu statusModulu, Stacja stacja, EnumSet<TypModulu> typModulu) {
         this.statusModulu = statusModulu;
-        this.id = Long.parseLong(IdGenerator.genId());
+        this.id = IdGenerator.genId();
         this.stacja = stacja;
         stacja.dodajModul(this);
         towary = new HashMap<>();

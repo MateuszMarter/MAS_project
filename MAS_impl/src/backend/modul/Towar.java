@@ -9,7 +9,7 @@ public class Towar extends Ext {
     private ModulBazowy modulBazowy;
 
     public Towar(ModulBazowy modulBazowy, float rozmiar) {
-        this.id = Long.parseLong(IdGenerator.genId());
+        this.id = IdGenerator.genId();
         this.rozmiar = rozmiar;
         setModul(modulBazowy);
     }

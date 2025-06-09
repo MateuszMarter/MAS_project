@@ -16,7 +16,7 @@ public class Zadanie extends Ext {
     public Zadanie(TypZadania typZadania) {
         this.typZadania = typZadania;
         this.statusZadania = StatusZadania.DOSTEPNE;
-        this.id = Long.parseLong(IdGenerator.genId());
+        this.id = IdGenerator.genId();
         Raport.dodajZadanie(this);
     }
 
@@ -32,6 +32,23 @@ public class Zadanie extends Ext {
         this.raporty.add(raport);
     }
 
+
+    public void setTypZadania(TypZadania typZadania) {
+        this.typZadania = typZadania;
+    }
+
+    public TypZadania getTypZadania() {
+        return typZadania;
+    }
+
+    public StatusZadania getStatus() {
+        return statusZadania;
+    }
+
+    public Raport getRaport() {
+        return raporty.get(raporty.size() - 1);
+    }
+
     @Override
     public String toString() {
         return "Zadanie{" +
@@ -39,9 +56,5 @@ public class Zadanie extends Ext {
                 ", statusZadania=" + statusZadania +
                 ", typZadania=" + typZadania +
                 '}';
-    }
-
-    public StatusZadania getStatus() {
-        return statusZadania;
     }
 }
